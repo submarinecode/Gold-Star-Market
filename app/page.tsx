@@ -6,14 +6,10 @@ import {
   totalSetCount,
   uniquePokemonCount,
 } from "@/lib/goldstar-data";
-import { getCardEstimates } from "@/lib/pricing";
 import { CardBrowser } from "@/components/CardBrowser";
 import { GoldStarIcon } from "@/components/GoldStarIcon";
-import { PriceTickerStatus } from "@/components/PriceTickerStatus";
 
-export const revalidate = 60 * 60;
-
-export default async function HomePage() {
+export default function HomePage() {
   const totalPrintings = ALL_CARDS.length;
   const sets = totalSetCount();
   const pokes = uniquePokemonCount();
@@ -21,19 +17,6 @@ export default async function HomePage() {
     c.notes.toLowerCase().includes("organized play"),
   ).length;
   const eraSpan = "2004 — 2007";
-
-  const estimates = await getCardEstimates(
-    ALL_CARDS.map((c) => ({
-      id: c.id,
-      name: c.name,
-      setName: c.setName,
-    })),
-  );
-
-  const newestAsOf = Object.values(estimates).reduce<string | undefined>(
-    (acc, e) => (acc && acc > e.asOf ? acc : e.asOf),
-    undefined,
-  );
 
   return (
     <div className="mx-auto max-w-6xl px-6 pb-24 pt-12 sm:pt-16">
@@ -75,11 +58,7 @@ export default async function HomePage() {
           </div>
         </div>
 
-        <div className="mb-6">
-          <PriceTickerStatus asOf={newestAsOf} />
-        </div>
-
-        <CardBrowser sets={SETS} estimates={estimates} />
+        <CardBrowser sets={SETS} estimates={{}} />
       </section>
 
       <div className="hairline my-16" />
