@@ -1,0 +1,632 @@
+// ============================================================
+//  GOLD STAR MARKET — goldstar.market
+//  The definitive market tracker for Pokémon Gold Star cards
+// ============================================================
+// Typed re-export of the original goldstar-data.js, with helpers
+// for routing, lookup, and shared formatting.
+// ============================================================
+
+export type GoldStarCard = {
+  id: string;
+  name: string;
+  number: string;
+  priceChartingUrl: string;
+  tcgPlayerUrl: string;
+  psaPopUrl: string;
+  shinyColor: string;
+  artist: string;
+  notes: string;
+  flagship?: boolean;
+  reprint?: boolean;
+  reprintOf?: string;
+};
+
+export type GoldStarSet = {
+  id: string;
+  name: string;
+  year: number;
+  cards: GoldStarCard[];
+};
+
+export const GOLD_STAR_HISTORY = `
+Gold Star Pokémon cards were produced exclusively during the EX era (2004–2007),
+featuring shiny alternate-color Pokémon with frame-breaking artwork bursting beyond
+the illustration border. Introduced in EX Team Rocket Returns, they were the rarest
+cards of their era — pulling roughly 1 per 72 packs. Only 27 unique Pokémon received
+the Gold Star treatment across 10 English sets, with the Eeveelution trio reprinted
+in Power Keepers. Their low print runs, condition sensitivity, and finite nature have
+made them one of the most pursued complete sets in the hobby.
+`.trim();
+
+export const SETS: GoldStarSet[] = [
+  {
+    id: "ex-team-rocket-returns",
+    name: "EX Team Rocket Returns",
+    year: 2004,
+    cards: [
+      {
+        id: "mudkip-star",
+        name: "Mudkip",
+        number: "107/109",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-team-rocket-returns/mudkip-star-107",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=mudkip+gold+star&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2004/pokemon-ex-team-rocket-returns/119932",
+        shinyColor: "Purple",
+        artist: "Masakazu Fukuda",
+        notes:
+          "Purple-hued shiny Mudkip. One of the more accessible Gold Stars but still commands strong PSA 10 prices.",
+      },
+      {
+        id: "torchic-star",
+        name: "Torchic",
+        number: "108/109",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-team-rocket-returns/torchic-star-108",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=torchic+gold+star&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2004/pokemon-ex-team-rocket-returns/119932",
+        shinyColor: "Golden-orange",
+        artist: "Masakazu Fukuda",
+        notes:
+          "Golden-orange tones. Fan favorite among Hoenn starter collectors.",
+      },
+      {
+        id: "treecko-star",
+        name: "Treecko",
+        number: "109/109",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-team-rocket-returns/treecko-star-109",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=treecko+gold+star&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2004/pokemon-ex-team-rocket-returns/119932",
+        shinyColor: "Teal-green",
+        artist: "Masakazu Fukuda",
+        notes:
+          "Subtle teal-green shiny. Completes the Hoenn starter Gold Star trio.",
+      },
+    ],
+  },
+  {
+    id: "ex-deoxys",
+    name: "EX Deoxys",
+    year: 2005,
+    cards: [
+      {
+        id: "latias-star",
+        name: "Latias",
+        number: "106/107",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-deoxys/latias-star-106",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=latias+gold+star&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2005/pokemon-ex-deoxys/119933",
+        shinyColor: "Gold",
+        artist: "Masakazu Fukuda",
+        notes: "Shiny gold-colored Latias in a dynamic flying pose.",
+      },
+      {
+        id: "latios-star",
+        name: "Latios",
+        number: "107/107",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-deoxys/latios-star-107",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=latios+gold+star&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2005/pokemon-ex-deoxys/119933",
+        shinyColor: "Green",
+        artist: "Masakazu Fukuda",
+        notes: "Shiny green Latios soaring through the sky.",
+      },
+      {
+        id: "rayquaza-star",
+        name: "Rayquaza",
+        number: "107/107",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-deoxys/rayquaza-star-108",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=rayquaza+gold+star&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2005/pokemon-ex-deoxys/119933",
+        shinyColor: "Black",
+        artist: "Masakazu Fukuda",
+        notes:
+          "The crown jewel of the entire Gold Star lineup. Shiny black Rayquaza is one of the most visually striking cards ever produced. PSA 10 copies regularly exceed $20,000.",
+        flagship: true,
+      },
+    ],
+  },
+  {
+    id: "ex-unseen-forces",
+    name: "EX Unseen Forces",
+    year: 2005,
+    cards: [
+      {
+        id: "entei-star",
+        name: "Entei",
+        number: "112/115",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-unseen-forces/entei-star-112",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=entei+gold+star&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2005/pokemon-ex-unseen-forces/119934",
+        shinyColor: "Brown",
+        artist: "Masakazu Fukuda",
+        notes:
+          "Shiny brown Entei with a powerful stance. Part of the Legendary Beast Gold Star trio.",
+      },
+      {
+        id: "raikou-star",
+        name: "Raikou",
+        number: "113/115",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-unseen-forces/raikou-star-113",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=raikou+gold+star&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2005/pokemon-ex-unseen-forces/119934",
+        shinyColor: "Yellow-gold",
+        artist: "Masakazu Fukuda",
+        notes:
+          "Yellow-gold shiny coloring. Completes the Legendary Beast trio.",
+      },
+      {
+        id: "suicune-star",
+        name: "Suicune",
+        number: "114/115",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-unseen-forces/suicune-star-114",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=suicune+gold+star&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2005/pokemon-ex-unseen-forces/119934",
+        shinyColor: "Blue",
+        artist: "Masakazu Fukuda",
+        notes:
+          "Shiny blue-toned Suicune. Highly popular due to Suicune's enduring fan following.",
+      },
+    ],
+  },
+  {
+    id: "ex-delta-species",
+    name: "EX Delta Species",
+    year: 2005,
+    cards: [
+      {
+        id: "flareon-star",
+        name: "Flareon",
+        number: "100/113",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-delta-species/flareon-star-100",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=flareon+gold+star+delta+species&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2005/pokemon-ex-delta-species/119935",
+        shinyColor: "White",
+        artist: "Masakazu Fukuda",
+        notes:
+          "White-toned shiny Flareon. Delta Species variant commands a premium over the Power Keepers reprint.",
+      },
+      {
+        id: "jolteon-star",
+        name: "Jolteon",
+        number: "101/113",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-delta-species/jolteon-star-101",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=jolteon+gold+star+delta+species&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2005/pokemon-ex-delta-species/119935",
+        shinyColor: "Green",
+        artist: "Masakazu Fukuda",
+        notes:
+          "Green shiny Jolteon. Delta Species original is more sought-after than the Power Keepers reprint.",
+      },
+      {
+        id: "vaporeon-star",
+        name: "Vaporeon",
+        number: "102/113",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-delta-species/vaporeon-star-102",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=vaporeon+gold+star+delta+species&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2005/pokemon-ex-delta-species/119935",
+        shinyColor: "Pink",
+        artist: "Masakazu Fukuda",
+        notes:
+          "Pink shiny Vaporeon. Completes the Eeveelution trio in Delta Species.",
+      },
+      {
+        id: "groudon-star",
+        name: "Groudon",
+        number: "111/113",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-delta-species/groudon-star-111",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=groudon+gold+star&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2005/pokemon-ex-delta-species/119935",
+        shinyColor: "Olive-gold",
+        artist: "Masakazu Fukuda",
+        notes:
+          "Olive-gold shiny Groudon. Part of the Weather Trio Gold Stars exclusive to EX Delta Species.",
+      },
+      {
+        id: "kyogre-star",
+        name: "Kyogre",
+        number: "112/113",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-delta-species/kyogre-star-112",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=kyogre+gold+star&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2005/pokemon-ex-delta-species/119935",
+        shinyColor: "Purple",
+        artist: "Masakazu Fukuda",
+        notes:
+          "Shiny purple Kyogre, completing the Weather Trio alongside Groudon and Rayquaza.",
+      },
+      {
+        id: "metagross-star",
+        name: "Metagross",
+        number: "113/113",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-delta-species/metagross-star-113",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=metagross+gold+star&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2005/pokemon-ex-delta-species/119935",
+        shinyColor: "Silver",
+        artist: "Masakazu Fukuda",
+        notes:
+          "Shiny silver Metagross with the Delta Species dual-typing. Secret rare numbered at the set limit.",
+      },
+    ],
+  },
+  {
+    id: "ex-legend-maker",
+    name: "EX Legend Maker",
+    year: 2006,
+    cards: [
+      {
+        id: "regice-star",
+        name: "Regice",
+        number: "89/92",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-legend-maker/regice-star-89",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=regice+gold+star&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2006/pokemon-ex-legend-maker/119936",
+        shinyColor: "Blue-white",
+        artist: "Masakazu Fukuda",
+        notes:
+          "Icy blue-white Regice. Among the more affordable Gold Stars, still commanding in PSA 10.",
+      },
+      {
+        id: "regirock-star",
+        name: "Regirock",
+        number: "90/92",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-legend-maker/regirock-star-90",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=regirock+gold+star&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2006/pokemon-ex-legend-maker/119936",
+        shinyColor: "Sandy",
+        artist: "Masakazu Fukuda",
+        notes: "Sandy-toned shiny Regirock in a defensive stance.",
+      },
+      {
+        id: "registeel-star",
+        name: "Registeel",
+        number: "92/92",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-legend-maker/registeel-star-91",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=registeel+gold+star&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2006/pokemon-ex-legend-maker/119936",
+        shinyColor: "Copper",
+        artist: "Masakazu Fukuda",
+        notes: "Copper-toned Registeel. Completes the Regi trio Gold Stars.",
+      },
+    ],
+  },
+  {
+    id: "ex-holon-phantoms",
+    name: "EX Holon Phantoms",
+    year: 2006,
+    cards: [
+      {
+        id: "gyarados-star",
+        name: "Gyarados",
+        number: "102/110",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-holon-phantoms/gyarados-star-102",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=gyarados+gold+star&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2006/pokemon-ex-holon-phantoms/119937",
+        shinyColor: "Red",
+        artist: "Masakazu Fukuda",
+        notes:
+          "Shiny red Gyarados, evoking the iconic Red Gyarados from Pokémon Gold and Silver. Beloved for the reference.",
+      },
+      {
+        id: "mewtwo-star",
+        name: "Mewtwo",
+        number: "103/110",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-holon-phantoms/mewtwo-star-103",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=mewtwo+gold+star&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2006/pokemon-ex-holon-phantoms/119937",
+        shinyColor: "Green",
+        artist: "Masakazu Fukuda",
+        notes:
+          "Shiny green Mewtwo. The combination of an iconic Pokémon and Gold Star treatment makes this highly sought after.",
+      },
+      {
+        id: "pikachu-star",
+        name: "Pikachu",
+        number: "104/110",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-holon-phantoms/pikachu-star-104",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=pikachu+gold+star&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2006/pokemon-ex-holon-phantoms/119937",
+        shinyColor: "Orange",
+        artist: "Masakazu Fukuda",
+        notes:
+          "Orange-tinted shiny Pikachu. The franchise mascot in Gold Star form is a must-have for any collector.",
+      },
+    ],
+  },
+  {
+    id: "ex-crystal-guardians",
+    name: "EX Crystal Guardians",
+    year: 2006,
+    cards: [
+      {
+        id: "alakazam-star",
+        name: "Alakazam",
+        number: "100/100",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-crystal-guardians/alakazam-star-100",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=alakazam+gold+star&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2006/pokemon-ex-crystal-guardians/119938",
+        shinyColor: "Pink",
+        artist: "Masakazu Fukuda",
+        notes:
+          "Shiny pink Alakazam with a distinctive pose. Secret rare numbered at the set limit.",
+      },
+      {
+        id: "celebi-star",
+        name: "Celebi",
+        number: "100/100",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-crystal-guardians/celebi-star-101",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=celebi+gold+star&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2006/pokemon-ex-crystal-guardians/119938",
+        shinyColor: "Blue-green",
+        artist: "Masakazu Fukuda",
+        notes: "Blue-green shiny Celebi. Popular with Mythical Pokémon collectors.",
+      },
+    ],
+  },
+  {
+    id: "ex-dragon-frontiers",
+    name: "EX Dragon Frontiers",
+    year: 2006,
+    cards: [
+      {
+        id: "charizard-star",
+        name: "Charizard",
+        number: "100/101",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-dragon-frontiers/charizard-star-100",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=charizard+gold+star+dragon+frontiers&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2006/pokemon-ex-dragon-frontiers/119939",
+        shinyColor: "Black",
+        artist: "Masakazu Fukuda",
+        notes:
+          "Black shiny Charizard — one of the most iconic and high-demand cards in the entire hobby. PSA 10 copies routinely exceed $15,000.",
+        flagship: true,
+      },
+      {
+        id: "mew-star",
+        name: "Mew",
+        number: "101/101",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-dragon-frontiers/mew-star-101",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=mew+gold+star&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2006/pokemon-ex-dragon-frontiers/119939",
+        shinyColor: "Blue",
+        artist: "Masakazu Fukuda",
+        notes:
+          "Shiny blue Mew. Extremely popular with Mew collectors, and benefits from Mew's timeless appeal.",
+      },
+    ],
+  },
+  {
+    id: "ex-power-keepers",
+    name: "EX Power Keepers",
+    year: 2007,
+    cards: [
+      {
+        id: "flareon-star-pk",
+        name: "Flareon",
+        number: "100/108",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-power-keepers/flareon-star-100",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=flareon+gold+star+power+keepers&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2007/pokemon-ex-power-keepers/119940",
+        shinyColor: "White",
+        artist: "Masakazu Fukuda",
+        notes:
+          "Reprint of the Delta Species Flareon ★. Lower demand than the original but still a complete-set chase.",
+        reprint: true,
+        reprintOf: "EX Delta Species",
+      },
+      {
+        id: "jolteon-star-pk",
+        name: "Jolteon",
+        number: "101/108",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-power-keepers/jolteon-star-101",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=jolteon+gold+star+power+keepers&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2007/pokemon-ex-power-keepers/119940",
+        shinyColor: "Green",
+        artist: "Masakazu Fukuda",
+        notes: "Reprint of the Delta Species Jolteon ★.",
+        reprint: true,
+        reprintOf: "EX Delta Species",
+      },
+      {
+        id: "vaporeon-star-pk",
+        name: "Vaporeon",
+        number: "102/108",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-ex-power-keepers/vaporeon-star-102",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=vaporeon+gold+star+power+keepers&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2007/pokemon-ex-power-keepers/119940",
+        shinyColor: "Pink",
+        artist: "Masakazu Fukuda",
+        notes: "Reprint of the Delta Species Vaporeon ★.",
+        reprint: true,
+        reprintOf: "EX Delta Species",
+      },
+    ],
+  },
+  {
+    id: "pop-series-5",
+    name: "POP Series 5",
+    year: 2007,
+    cards: [
+      {
+        id: "espeon-star",
+        name: "Espeon",
+        number: "16/17",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-pop-series-5/espeon-star-16",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=espeon+gold+star+pop+series+5&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2007/pokemon-pop-series-5/119941",
+        shinyColor: "Yellow-gold",
+        artist: "Masakazu Fukuda",
+        notes:
+          "Distributed exclusively through Pokémon Organized Play leagues — not available in retail packs. PSA 10 copies have sold for $70,000+. One of the rarest English Gold Stars.",
+        flagship: true,
+      },
+      {
+        id: "umbreon-star",
+        name: "Umbreon",
+        number: "17/17",
+        priceChartingUrl:
+          "https://www.pricecharting.com/game/pokemon-pop-series-5/umbreon-star-17",
+        tcgPlayerUrl:
+          "https://www.tcgplayer.com/search/pokemon/product?q=umbreon+gold+star+pop+series+5&productLineName=pokemon",
+        psaPopUrl:
+          "https://www.psacard.com/pop/trading-card-games/2007/pokemon-pop-series-5/119941",
+        shinyColor: "Blue",
+        artist: "Masakazu Fukuda",
+        notes:
+          "The rarest and most valuable Gold Star in existence. Distributed only via Pokémon Organized Play. PSA 10 copies have broken $100,000 at auction.",
+        flagship: true,
+      },
+    ],
+  },
+];
+
+export const GRADE_LABELS: Record<string, string> = {
+  "ungraded-price": "Ungraded",
+  "grade-1-price": "PSA 1",
+  "grade-2-price": "PSA 2",
+  "grade-3-price": "PSA 3",
+  "grade-4-price": "PSA 4",
+  "grade-5-price": "PSA 5",
+  "grade-6-price": "PSA 6",
+  "grade-7-price": "PSA 7",
+  "grade-8-price": "PSA 8",
+  "grade-9-price": "PSA 9",
+  "grade-10-price": "PSA 10",
+};
+
+export const GRADE_KEYS_ORDERED = [
+  "ungraded-price",
+  "grade-9-price",
+  "grade-10-price",
+] as const;
+
+export type GradeKey = (typeof GRADE_KEYS_ORDERED)[number];
+
+export const ALL_CARDS: Array<GoldStarCard & { setId: string; setName: string; year: number }> =
+  SETS.flatMap((set) =>
+    set.cards.map((card) => ({
+      ...card,
+      setId: set.id,
+      setName: set.name,
+      year: set.year,
+    })),
+  );
+
+export function findCardById(id: string) {
+  return ALL_CARDS.find((c) => c.id === id) ?? null;
+}
+
+export function findSetForCardId(id: string) {
+  return SETS.find((set) => set.cards.some((c) => c.id === id)) ?? null;
+}
+
+/**
+ * Public eBay search URL filtered to sold/completed listings, scoped to the
+ * Trading Card Singles category. No API call required.
+ */
+export function ebayCompletedUrl(cardName: string, setName: string) {
+  const q = encodeURIComponent(`${cardName} gold star ${setName} pokemon`);
+  return `https://www.ebay.com/sch/i.html?_nkw=${q}&LH_Complete=1&LH_Sold=1&_sacat=2536`;
+}
+
+export function ebayActiveQuery(cardName: string, setName: string) {
+  return `${cardName} gold star ${setName} pokemon`;
+}
+
+export function totalCardCount() {
+  return ALL_CARDS.length;
+}
+
+export function totalSetCount() {
+  return SETS.length;
+}
+
+export function uniquePokemonCount() {
+  const names = new Set<string>();
+  for (const c of ALL_CARDS) names.add(c.name.toLowerCase());
+  return names.size;
+}

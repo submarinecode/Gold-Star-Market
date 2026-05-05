@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --font-sans: "Helvetica Neue", Helvetica, "Inter", "Segoe UI", Arial,
+    sans-serif;
+}
+
+html,
+body {
+  background: #0a0a0a;
+  color: #eceae4;
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11", "kern";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-image:
+    radial-gradient(
+      1100px 520px at 50% -8%,
+      rgba(201, 168, 76, 0.045),
+      transparent 60%
+    ),
+    linear-gradient(180deg, #0a0a0a 0%, #060606 100%);
+  background-attachment: fixed;
+}
+
+/* Selection */
+::selection {
+  background: rgba(201, 168, 76, 0.3);
+  color: #fff8e1;
+}
+
+/* Scrollbars (WebKit) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(201, 168, 76, 0.16);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(201, 168, 76, 0.3);
+}
+
+@layer base {
+  /* Project-wide typographic defaults — institutional / investment feel. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-sans);
+    letter-spacing: -0.02em;
+    font-weight: 500;
+  }
+}
+
+@layer components {
+  .gold-rule {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(201, 168, 76, 0.4) 20%,
+      rgba(201, 168, 76, 0.4) 80%,
+      transparent 100%
+    );
+  }
+
+  .hairline {
+    height: 1px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border border-gold/40 bg-gold/[0.06] px-4 py-2 text-sm font-medium text-gold transition;
+  }
+  .btn-gold:hover {
+    @apply border-gold bg-gold/15 text-gold-bright;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border border-white/10 bg-transparent px-4 py-2 text-sm font-medium text-ink/80 transition;
+  }
+  .btn-ghost:hover {
+    @apply border-white/25 text-ink;
+  }
+
+  .pill {
+    @apply inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] uppercase tracking-[0.12em];
+  }
+
+  .num {
+    font-feature-settings: "tnum" 1, "lnum" 1;
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  .panel {
+    @apply rounded-xl border border-white/5 bg-card;
+  }
+
+  .eyebrow {
+    @apply text-[10px] uppercase tracking-[0.32em] text-gold/80;
+  }
+}
