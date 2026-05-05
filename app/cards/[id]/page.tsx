@@ -7,14 +7,14 @@ import {
   findCardById,
   findSetForCardId,
 } from "@/lib/goldstar-data";
-import {
-  FlagshipBadge,
-  ShinyColorBadge,
-  YearBadge,
-} from "@/components/Badges";
+import { ShinyColorBadge, YearBadge } from "@/components/Badges";
 import { EbayListings } from "@/components/EbayListings";
 import { CardImage } from "@/components/CardImage";
 import { GoldStarIcon } from "@/components/GoldStarIcon";
+import { GradeLadderTable } from "@/components/GradeLadder";
+import { getCardGradeLadder } from "@/lib/pricing";
+
+export const revalidate = 60 * 60 * 4;
 
 export function generateStaticParams() {
   return ALL_CARDS.map((c) => ({ id: c.id }));
@@ -29,7 +29,7 @@ export function generateMetadata({ params }: { params: { id: string } }) {
   };
 }
 
-export default function CardDetailPage({
+export default async function CardDetailPage({
   params,
 }: {
   params: { id: string };
@@ -37,6 +37,12 @@ export default function CardDetailPage({
   const card = findCardById(params.id);
   const set = findSetForCardId(params.id);
   if (!card || !set) return notFound();
+
+  const ladder = await getCardGradeLadder({
+    id: card.id,
+    name: card.name,
+    setName: set.name,
+  });
 
   return (
     <div className="mx-auto max-w-6xl px-6 pb-24 pt-10">
@@ -50,11 +56,7 @@ export default function CardDetailPage({
       </div>
 
       <header
-        className={`relative overflow-hidden rounded-2xl border p-6 sm:p-10 ${
-          card.flagship
-            ? "border-gold/45 shadow-flagship"
-            : "border-white/5"
-        }`}
+        className="relative overflow-hidden rounded-2xl border border-white/5 p-6 sm:p-10"
         style={{
           background:
             "radial-gradient(800px 300px at 20% 0%, rgba(201,168,76,0.10), transparent 60%), #141414",
@@ -62,13 +64,7 @@ export default function CardDetailPage({
       >
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-12 sm:items-start">
           <div className="sm:col-span-4 lg:col-span-3">
-            <div
-              className={`relative ${
-                card.flagship
-                  ? "[filter:drop-shadow(0_0_36px_rgba(232,200,117,0.32))]"
-                  : "[filter:drop-shadow(0_0_24px_rgba(0,0,0,0.6))]"
-              }`}
-            >
+            <div className="relative [filter:drop-shadow(0_0_24px_rgba(0,0,0,0.6))]">
               <CardImage card={card} variant="hero" priority />
             </div>
           </div>
@@ -77,12 +73,11 @@ export default function CardDetailPage({
             <div className="flex flex-wrap items-center gap-2">
               <YearBadge year={set.year} />
               <ShinyColorBadge color={card.shinyColor} />
-              {card.flagship ? <FlagshipBadge /> : null}
             </div>
 
             <h1 className="mt-5 flex flex-wrap items-center gap-3 text-5xl font-medium tracking-tightest text-ink sm:text-6xl lg:text-7xl">
               <span>{card.name}</span>
-              <GoldStarIcon size="xl" />
+              <GoldStarIcon size="2xl" />
             </h1>
             <div className="mt-3 text-sm text-ink-muted">
               {set.name} · <span className="num">#{card.number}</span> ·
@@ -132,43 +127,19 @@ export default function CardDetailPage({
       </header>
 
       <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2 space-y-6">
+          <GradeLadderTable ladder={ladder} cardName={card.name} />
+
           <Suspense fallback={<EbayListingsSkeleton />}>
             <EbayListings cardName={card.name} setName={set.name} limit={8} />
           </Suspense>
-
-          <div className="panel mt-6 overflow-hidden">
-            <div className="border-b border-white/5 px-6 py-4">
-              <div className="eyebrow">PriceCharting</div>
-              <h3 className="mt-2 text-xl font-medium tracking-tight text-ink">
-                Grade prices
-              </h3>
-            </div>
-            <div className="px-6 py-6 text-sm text-ink-muted">
-              <p>
-                Live grade pricing requires a PriceCharting API token. While
-                you&apos;re testing the free tier of Gold Star Market, click
-                through to view the full grade ladder for{" "}
-                <span className="text-ink">{card.name}</span>{" "}
-                <GoldStarIcon size="xs" />.
-              </p>
-              <a
-                className="btn-gold mt-4"
-                href={card.priceChartingUrl}
-                target="_blank"
-                rel="noreferrer"
-              >
-                View full price ladder →
-              </a>
-            </div>
-          </div>
         </div>
 
         <aside className="space-y-6">
           <div className="panel p-6">
-            <div className="eyebrow">PSA Population</div>
+            <div className="eyebrow">Pop Reports</div>
             <h3 className="mt-2 text-xl font-medium tracking-tight text-ink">
-              Pop report
+              PSA pop report
             </h3>
             <p className="mt-3 text-sm text-ink-muted">
               PSA does not publish a public API. View the latest official pop

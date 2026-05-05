@@ -60,7 +60,7 @@ const TIMELINE = [
     year: "2017 — present",
     title: "Modern market",
     body:
-      "Gold Stars become institutional grail cards as the Pokémon collecting boom accelerates. PSA 10 prices for flagships routinely 5–10× across cycles, with condition sensitivity making high grades disproportionately valuable.",
+      "Gold Stars become institutional grail cards as the Pokémon collecting boom accelerates. PSA 10 prices for the headline cards routinely 5–10× across cycles, with condition sensitivity making high grades disproportionately valuable.",
   },
 ];
 
