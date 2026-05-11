@@ -70,9 +70,13 @@
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
   const card = ALL_CARDS.find(c => c.id === id);
+  // Look up the parent set directly so setName is always reliable
+  const parentSet = SETS.find(s => s.cards.some(c => c.id === id));
+  const setName = (card && card.setName) || (parentSet && parentSet.name) || "";
+  const setYear = (card && card.year) || (parentSet && parentSet.year) || "";
 
   if (card) {
-    document.title = `${card.name} ★ — ${card.setName} · Gold Star Market`;
+    document.title = `${card.name} ★ — ${setName} · Gold Star Market`;
 
     const imgHtml = card.image
       ? `<img src="/cards/${card.image}" alt="${card.name} ★">`
@@ -90,7 +94,7 @@
           <div class="card-detail-img-wrap">${imgHtml}</div>
           <div class="card-detail-info">
             <div class="card-detail-tags">
-              <span class="tag">${card.year}</span>
+              <span class="tag">${setYear}</span>
               <span class="tag">
                 <span class="color-dot" style="background:${colorHex(card.shinyColor)}"></span>
                 ${card.shinyColor}
@@ -101,13 +105,11 @@
               ${card.name}
               <span style="color:var(--gold);filter:drop-shadow(0 0 8px rgba(201,168,76,0.4))">★</span>
             </h1>
-            <div class="card-detail-sub">${card.setName} · #${card.number} · ${card.artist}</div>
+            <div class="card-detail-sub">${setName} · #${card.number} · ${card.artist}</div>
             <p class="card-detail-notes">${card.notes}</p>
             <div class="card-detail-btns">
               <a class="btn btn-gold" href="${card.priceChartingUrl}" target="_blank" rel="noreferrer">PriceCharting →</a>
               <a class="btn btn-ghost" href="${card.tcgPlayerUrl}" target="_blank" rel="noreferrer">TCGPlayer</a>
-              <a class="btn btn-ghost" href="${ebayUrl(card.name, card.setName)}" target="_blank" rel="noreferrer">eBay sold history</a>
-              <a class="btn btn-ghost" href="${card.psaPopUrl}" target="_blank" rel="noreferrer">PSA pop report</a>
             </div>
           </div>
         </div>
@@ -117,8 +119,8 @@
         <div class="panel specs-panel">
           <div class="eyebrow">Specs</div>
           <ul class="spec-list">
-            <li class="spec-row"><span class="spec-label">Set</span><span class="spec-value">${card.setName}</span></li>
-            <li class="spec-row"><span class="spec-label">Year</span><span class="spec-value">${card.year}</span></li>
+            <li class="spec-row"><span class="spec-label">Set</span><span class="spec-value">${setName}</span></li>
+            <li class="spec-row"><span class="spec-label">Year</span><span class="spec-value">${setYear}</span></li>
             <li class="spec-row"><span class="spec-label">Number</span><span class="spec-value">#${card.number}</span></li>
             <li class="spec-row"><span class="spec-label">Shiny color</span><span class="spec-value" style="display:flex;align-items:center;gap:0.4rem;justify-content:flex-end"><span class="color-dot" style="background:${colorHex(card.shinyColor)}"></span>${card.shinyColor}</span></li>
             <li class="spec-row"><span class="spec-label">Artist</span><span class="spec-value">${card.artist}</span></li>

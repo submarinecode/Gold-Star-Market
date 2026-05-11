@@ -78,6 +78,7 @@ main { flex: 1; }
   display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem;
 }
 .hero-star { color: var(--gold); filter: drop-shadow(0 0 10px rgba(201,168,76,0.35)); }
+.hero-star-img { height: 0.85em; width: auto; display: inline; vertical-align: middle; filter: drop-shadow(0 0 10px rgba(232,200,117,0.35)) drop-shadow(0 1px 0 rgba(0,0,0,0.4)); }
 .hero-desc { max-width: 580px; font-size: 1rem; color: var(--ink-muted); line-height: 1.75; margin-bottom: 2rem; }
 
 /* ── Buttons ────────────────────────────────────────────────── */
