@@ -96,11 +96,6 @@ const COLOR_HEX = {
 
 function colorHex(name) { return COLOR_HEX[name] || "#888"; }
 
-function ebayUrl(cardName, setName) {
-  const q = encodeURIComponent(`${cardName} gold star ${setName} pokemon`);
-  return `https://www.ebay.com/sch/i.html?_nkw=${q}&LH_Complete=1&LH_Sold=1&_sacat=2536`;
-}
-
 function cardImgHtml(card, cls = "") {
   if (card.image) {
     return `<img src="/cards/${card.image}" alt="${card.name} ★" loading="lazy" class="${cls}">`;
@@ -109,26 +104,12 @@ function cardImgHtml(card, cls = "") {
 }
 
 function renderCardTile(card) {
-  const tags = [];
-  if (card.flagship) tags.push(`<span class="flagship-tag">★ Flagship</span>`);
-  if (card.reprint) tags.push(`<span class="reprint-tag">Reprint · ${card.reprintOf}</span>`);
   return `
-<a class="card-tile" href="/card?id=${card.id}">
-  <div class="card-img-wrap">${cardImgHtml(card)}</div>
-  <div class="card-body">
-    <div class="card-name">${card.name} <span class="card-star">★</span></div>
-    <div class="card-set-name">${card.setName}</div>
-    <div class="card-num">#${card.number}</div>
-    <div class="card-color-row">
-      <span class="color-dot" style="background:${colorHex(card.shinyColor)}"></span>
-      <span class="color-label">${card.shinyColor}</span>
-    </div>
-    ${tags.join("")}
-    <div class="card-links">
-      <a class="card-link card-link-primary" href="${card.priceChartingUrl}" target="_blank" rel="noreferrer" onclick="event.stopPropagation()">PriceCharting →</a>
-      <a class="card-link" href="${card.psaPopUrl}" target="_blank" rel="noreferrer" onclick="event.stopPropagation()">PSA</a>
-      <a class="card-link" href="${ebayUrl(card.name, card.setName)}" target="_blank" rel="noreferrer" onclick="event.stopPropagation()">eBay sold</a>
-    </div>
-  </div>
-</a>`;
+<div class="card-tile">
+  <a class="card-tile-visual" href="/card?id=${card.id}">
+    <div class="card-img-wrap">${cardImgHtml(card)}</div>
+    <div class="card-caption">${card.name} <span class="card-star">★</span></div>
+  </a>
+  <a class="btn btn-gold btn-block" href="${card.priceChartingUrl}" target="_blank" rel="noreferrer">PriceCharting →</a>
+</div>`;
 }

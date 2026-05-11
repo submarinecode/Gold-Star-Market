@@ -190,7 +190,7 @@
         <h3 class="set-title"><a href="#${s.id}" style="color:inherit">${s.name}</a></h3>
         <div class="set-meta"><div style="font-size:1rem;color:var(--ink)">${s.year}</div><div style="text-transform:uppercase;letter-spacing:0.18em">${s.cards.length} card${s.cards.length===1?"":"s"}</div></div>
       </div>
-      <div class="card-grid">${s.cards.map(renderCardTile).join("")}</div>`;
+      <div class="card-grid">${s.cards.map(c => renderCardTile({ ...c, setId: s.id, setName: s.name, year: s.year })).join("")}</div>`;
     setGroups.appendChild(section);
   });
 
