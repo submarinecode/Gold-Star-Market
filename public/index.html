@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gold Star Market — Pokémon Gold Star Investment Index</title>
+  <meta name="description" content="The definitive market index for all 30 Pokémon Gold Star printings. Live eBay links, PriceCharting, TCGPlayer, and PSA pop reports.">
+  <link rel="icon" href="/gold-star.png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="logo" href="/">
+      <img src="/gold-star.png" alt="">
+      Gold Star Market
+    </a>
+    <nav class="site-nav">
+      <a href="/" class="active">Cards</a>
+      <a href="/history">History</a>
+      <a href="/population">Pop Reports</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="eyebrow">Pokémon · EX Era · 2004 — 2007</div>
+      <h1 class="hero-title">
+        The best investment in Pokémon
+        <span class="hero-star">★</span>
+      </h1>
+      <p class="hero-desc">
+        An institutional-grade index of every Pokémon Gold Star —
+        all <strong id="stat-pokes"></strong> Pokémon,
+        <strong id="stat-printings"></strong> printings, across
+        <strong id="stat-sets"></strong> EX-era sets —
+        with PriceCharting, TCGPlayer, eBay sold history, and PSA pop data in one vault.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-gold" href="#card-browser">Browse the index →</a>
+        <a class="btn btn-ghost" href="/population">Pop Reports</a>
+        <a class="btn btn-ghost" href="/history">History</a>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-cell"><div class="stat-label">Unique Pokémon</div><div class="stat-value" id="s-pokes"></div></div>
+      <div class="stat-cell"><div class="stat-label">Total printings</div><div class="stat-value" id="s-printings"></div></div>
+      <div class="stat-cell"><div class="stat-label">Sets covered</div><div class="stat-value" id="s-sets"></div></div>
+      <div class="stat-cell"><div class="stat-label">POP-only</div><div class="stat-value" id="s-pop"></div></div>
+      <div class="stat-cell"><div class="stat-label">Era</div><div class="stat-value" style="font-size:1.1rem">2004–07</div></div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Card Browser -->
+    <section id="card-browser">
+      <div style="margin-bottom:1.5rem">
+        <div class="eyebrow section-eyebrow">The Vault</div>
+        <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem">
+          <div>
+            <h2 class="section-title">Browse the entire index</h2>
+            <p class="section-desc">Every Gold Star printing across all 10 EX-era sets. Search by name, set, or shiny color. Click any card for full details.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search -->
+      <div class="search-row">
+        <div class="search-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="20" y2="20"/></svg>
+          <input type="search" id="search-input" placeholder="Search by name, set, color…" aria-label="Search Gold Stars">
+        </div>
+        <div class="search-hint" id="search-hint"></div>
+      </div>
+
+      <!-- Flat results (search mode) -->
+      <div id="flat-grid">
+        <div class="no-results" id="no-results">No matching Gold Stars. Try a name ("Charizard"), a set ("Crystal Guardians"), or a color ("black").</div>
+      </div>
+
+      <!-- Set groups (default) -->
+      <div class="set-groups" id="set-groups"></div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- About section -->
+    <div class="info-grid">
+      <div class="panel">
+        <div class="eyebrow">Background</div>
+        <h2>Why Gold Stars</h2>
+        <p id="history-text"></p>
+        <div class="btn-row" style="margin-top:1.5rem">
+          <a class="btn btn-gold" href="/history">Read the full history →</a>
+          <a class="btn btn-ghost" href="/population">Pop Reports</a>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="eyebrow">Sets</div>
+        <h2 style="font-size:1.1rem;margin-bottom:1.25rem">All ten sets</h2>
+        <ul class="sets-list" id="sets-list"></ul>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="logo" href="/"><img src="/gold-star.png" alt="">Gold Star Market</a>
+        <p>An independent market index for Pokémon Gold Star cards. Pricing data is sourced from PriceCharting, TCGPlayer, eBay, and PSA. For informational purposes only — not investment advice.</p>
+      </div>
+      <div class="footer-cols">
+        <div>
+          <div class="footer-col-heading">Index</div>
+          <div class="footer-col">
+            <a href="/">All cards</a>
+            <a href="/population">Pop Reports</a>
+            <a href="/history">History</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-heading">Data</div>
+          <div class="footer-col">
+            <a href="https://www.pricecharting.com/" target="_blank" rel="noreferrer">PriceCharting</a>
+            <a href="https://www.tcgplayer.com/" target="_blank" rel="noreferrer">TCGPlayer</a>
+            <a href="https://www.psacard.com/" target="_blank" rel="noreferrer">PSA</a>
+            <a href="https://www.ebay.com/" target="_blank" rel="noreferrer">eBay</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-heading">Disclosure</div>
+          <div class="footer-col">
+            <span>Not affiliated with Pokémon, PSA, or eBay.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Gold Star Market</span>
+      <span>EX Era · 2004 — 2007</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/data.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Stats
+  const uniqueNames = new Set(ALL_CARDS.map(c => c.name.toLowerCase()));
+  const popOnly = ALL_CARDS.filter(c => c.notes.toLowerCase().includes("organized play")).length;
+  document.getElementById("stat-pokes").textContent = uniqueNames.size;
+  document.getElementById("stat-printings").textContent = ALL_CARDS.length;
+  document.getElementById("stat-sets").textContent = SETS.length;
+  document.getElementById("s-pokes").textContent = uniqueNames.size;
+  document.getElementById("s-printings").textContent = ALL_CARDS.length;
+  document.getElementById("s-sets").textContent = SETS.length;
+  document.getElementById("s-pop").textContent = popOnly;
+
+  // History text
+  document.getElementById("history-text").textContent = HISTORY_TEXT;
+
+  // Sets list
+  const setsList = document.getElementById("sets-list");
+  SETS.forEach(s => {
+    const li = document.createElement("li");
+    li.innerHTML = `<a href="#${s.id}">${s.name}</a><span class="set-year">${s.year} · ${s.cards.length}</span>`;
+    setsList.appendChild(li);
+  });
+
+  // Build set groups
+  const setGroups = document.getElementById("set-groups");
+  SETS.forEach(s => {
+    const section = document.createElement("div");
+    section.className = "set-section";
+    section.id = s.id;
+    section.dataset.setName = s.name.toLowerCase();
+    section.innerHTML = `
+      <div class="set-section-header">
+        <h3 class="set-title"><a href="#${s.id}" style="color:inherit">${s.name}</a></h3>
+        <div class="set-meta"><div style="font-size:1rem;color:var(--ink)">${s.year}</div><div style="text-transform:uppercase;letter-spacing:0.18em">${s.cards.length} card${s.cards.length===1?"":"s"}</div></div>
+      </div>
+      <div class="card-grid">${s.cards.map(renderCardTile).join("")}</div>`;
+    setGroups.appendChild(section);
+  });
+
+  // Search
+  const searchInput = document.getElementById("search-input");
+  const flatGrid = document.getElementById("flat-grid");
+  const noResults = document.getElementById("no-results");
+  const hint = document.getElementById("search-hint");
+
+  let flatCards = [];
+
+  function updateSearch() {
+    const q = searchInput.value.trim().toLowerCase();
+    if (!q) {
+      setGroups.classList.remove("search-active");
+      flatGrid.classList.remove("visible");
+      hint.innerHTML = `<strong>${ALL_CARDS.length}</strong> printings · <strong>${SETS.length}</strong> sets`;
+      return;
+    }
+
+    const matches = ALL_CARDS.filter(c =>
+      [c.name, c.setName, c.shinyColor, c.number, c.artist, c.notes].join(" ").toLowerCase().includes(q)
+    );
+
+    // Rebuild flat grid if needed
+    if (JSON.stringify(matches.map(c=>c.id)) !== JSON.stringify(flatCards)) {
+      flatCards = matches.map(c=>c.id);
+      // Remove old tiles
+      [...flatGrid.querySelectorAll(".card-tile")].forEach(el => el.remove());
+      noResults.classList.remove("visible");
+      if (matches.length === 0) {
+        noResults.classList.add("visible");
+      } else {
+        matches.forEach(c => {
+          flatGrid.insertAdjacentHTML("beforeend", renderCardTile(c));
+        });
+      }
+    }
+
+    setGroups.classList.add("search-active");
+    flatGrid.classList.add("visible");
+    hint.innerHTML = `<strong>${matches.length}</strong> match${matches.length===1?"":"es"} for "<strong>${searchInput.value.trim()}</strong>"`;
+  }
+
+  searchInput.addEventListener("input", updateSearch);
+  hint.innerHTML = `<strong>${ALL_CARDS.length}</strong> printings · <strong>${SETS.length}</strong> sets`;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pop Reports · Gold Star Market</title>
+  <meta name="description" content="PSA population report links for every Pokémon Gold Star card.">
+  <link rel="icon" href="/gold-star.png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="logo" href="/"><img src="/gold-star.png" alt="">Gold Star Market</a>
+    <nav class="site-nav">
+      <a href="/">Cards</a>
+      <a href="/history">History</a>
+      <a href="/population" class="active">Pop Reports</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="container pop-page">
+
+    <div class="section-header">
+      <div class="eyebrow">Pop Reports</div>
+      <h1 class="section-title">PSA pop reports</h1>
+      <p class="section-desc">PSA does not publish a public population API. We link out to PSA's official pop pages so the numbers you see are always source-of-truth.</p>
+    </div>
+
+    <div class="pop-table">
+      <div class="pop-table-head">
+        <div>Card</div>
+        <div>Set</div>
+        <div style="text-align:right">Year</div>
+        <div style="text-align:right">Pop report</div>
+      </div>
+      <div id="pop-rows"></div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="logo" href="/"><img src="/gold-star.png" alt="">Gold Star Market</a>
+        <p>An independent market index for Pokémon Gold Star cards. For informational purposes only — not investment advice.</p>
+      </div>
+      <div class="footer-cols">
+        <div>
+          <div class="footer-col-heading">Index</div>
+          <div class="footer-col"><a href="/">All cards</a><a href="/population">Pop Reports</a><a href="/history">History</a></div>
+        </div>
+        <div>
+          <div class="footer-col-heading">Data</div>
+          <div class="footer-col">
+            <a href="https://www.pricecharting.com/" target="_blank" rel="noreferrer">PriceCharting</a>
+            <a href="https://www.psacard.com/" target="_blank" rel="noreferrer">PSA</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-heading">Disclosure</div>
+          <div class="footer-col"><span>Not affiliated with Pokémon, PSA, or eBay.</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Gold Star Market</span>
+      <span>EX Era · 2004 — 2007</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/data.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  const popRows = document.getElementById("pop-rows");
+  ALL_CARDS.forEach(c => {
+    popRows.insertAdjacentHTML("beforeend", `
+      <div class="pop-table-row">
+        <div class="pop-name">
+          <span class="pop-name-star">★</span>
+          <a href="/card?id=${c.id}" style="color:inherit;transition:color 0.15s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='inherit'">${c.name}</a>
+        </div>
+        <div class="pop-set">${c.setName}</div>
+        <div class="pop-year">${c.year}</div>
+        <div class="pop-link"><a href="${c.psaPopUrl}" target="_blank" rel="noreferrer">PSA →</a></div>
+      </div>`);
+  });
+</script>
+
+</body>
+</html>

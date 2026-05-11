@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gold Star Market</title>
+  <link rel="icon" href="/gold-star.png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="logo" href="/"><img src="/gold-star.png" alt="">Gold Star Market</a>
+    <nav class="site-nav">
+      <a href="/">Cards</a>
+      <a href="/history">History</a>
+      <a href="/population">Pop Reports</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="container card-detail-page" id="page-content">
+    <div class="not-found">
+      <h2>Card not found</h2>
+      <p>No card matched that ID. <a href="/" style="color:var(--gold)">Browse all cards →</a></p>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="logo" href="/"><img src="/gold-star.png" alt="">Gold Star Market</a>
+        <p>An independent market index for Pokémon Gold Star cards. For informational purposes only — not investment advice.</p>
+      </div>
+      <div class="footer-cols">
+        <div>
+          <div class="footer-col-heading">Index</div>
+          <div class="footer-col"><a href="/">All cards</a><a href="/population">Pop Reports</a><a href="/history">History</a></div>
+        </div>
+        <div>
+          <div class="footer-col-heading">Data</div>
+          <div class="footer-col">
+            <a href="https://www.pricecharting.com/" target="_blank" rel="noreferrer">PriceCharting</a>
+            <a href="https://www.tcgplayer.com/" target="_blank" rel="noreferrer">TCGPlayer</a>
+            <a href="https://www.psacard.com/" target="_blank" rel="noreferrer">PSA</a>
+            <a href="https://www.ebay.com/" target="_blank" rel="noreferrer">eBay</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-heading">Disclosure</div>
+          <div class="footer-col"><span>Not affiliated with Pokémon, PSA, or eBay.</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Gold Star Market</span>
+      <span>EX Era · 2004 — 2007</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/data.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  const card = ALL_CARDS.find(c => c.id === id);
+
+  if (card) {
+    document.title = `${card.name} ★ — ${card.setName} · Gold Star Market`;
+
+    const imgHtml = card.image
+      ? `<img src="/cards/${card.image}" alt="${card.name} ★">`
+      : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;color:rgba(201,168,76,0.35)">★</div>`;
+
+    const tags = [];
+    if (card.flagship) tags.push(`<span class="tag" style="color:var(--gold);border-color:rgba(201,168,76,0.3);background:rgba(201,168,76,0.08)">★ Flagship</span>`);
+    if (card.reprint) tags.push(`<span class="tag">Reprint · ${card.reprintOf}</span>`);
+
+    document.getElementById("page-content").innerHTML = `
+      <a class="back-link" href="/">← All cards</a>
+
+      <div class="card-detail-header">
+        <div class="card-detail-grid">
+          <div class="card-detail-img-wrap">${imgHtml}</div>
+          <div class="card-detail-info">
+            <div class="card-detail-tags">
+              <span class="tag">${card.year}</span>
+              <span class="tag">
+                <span class="color-dot" style="background:${colorHex(card.shinyColor)}"></span>
+                ${card.shinyColor}
+              </span>
+              ${tags.join("")}
+            </div>
+            <h1 class="card-detail-name">
+              ${card.name}
+              <span style="color:var(--gold);filter:drop-shadow(0 0 8px rgba(201,168,76,0.4))">★</span>
+            </h1>
+            <div class="card-detail-sub">${card.setName} · #${card.number} · ${card.artist}</div>
+            <p class="card-detail-notes">${card.notes}</p>
+            <div class="card-detail-btns">
+              <a class="btn btn-gold" href="${card.priceChartingUrl}" target="_blank" rel="noreferrer">PriceCharting →</a>
+              <a class="btn btn-ghost" href="${card.tcgPlayerUrl}" target="_blank" rel="noreferrer">TCGPlayer</a>
+              <a class="btn btn-ghost" href="${ebayUrl(card.name, card.setName)}" target="_blank" rel="noreferrer">eBay sold history</a>
+              <a class="btn btn-ghost" href="${card.psaPopUrl}" target="_blank" rel="noreferrer">PSA pop report</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr;gap:1.5rem;max-width:400px">
+        <div class="panel specs-panel">
+          <div class="eyebrow">Specs</div>
+          <ul class="spec-list">
+            <li class="spec-row"><span class="spec-label">Set</span><span class="spec-value">${card.setName}</span></li>
+            <li class="spec-row"><span class="spec-label">Year</span><span class="spec-value">${card.year}</span></li>
+            <li class="spec-row"><span class="spec-label">Number</span><span class="spec-value">#${card.number}</span></li>
+            <li class="spec-row"><span class="spec-label">Shiny color</span><span class="spec-value" style="display:flex;align-items:center;gap:0.4rem;justify-content:flex-end"><span class="color-dot" style="background:${colorHex(card.shinyColor)}"></span>${card.shinyColor}</span></li>
+            <li class="spec-row"><span class="spec-label">Artist</span><span class="spec-value">${card.artist}</span></li>
+            ${card.reprint ? `<li class="spec-row"><span class="spec-label">Reprint of</span><span class="spec-value">${card.reprintOf}</span></li>` : ""}
+          </ul>
+        </div>
+      </div>`;
+  }
+</script>
+
+</body>
+</html>

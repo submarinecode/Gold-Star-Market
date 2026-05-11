@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>History of Gold Stars · Gold Star Market</title>
+  <meta name="description" content="The story of Pokémon Gold Star cards — from EX Team Rocket Returns in 2004 to POP Series 5 in 2007.">
+  <link rel="icon" href="/gold-star.png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="logo" href="/"><img src="/gold-star.png" alt="">Gold Star Market</a>
+    <nav class="site-nav">
+      <a href="/">Cards</a>
+      <a href="/history" class="active">History</a>
+      <a href="/population">Pop Reports</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="container history-page">
+
+    <div class="section-header">
+      <div class="eyebrow">History</div>
+      <h1 class="section-title">The history of Gold Stars</h1>
+      <p class="section-desc" id="history-intro"></p>
+    </div>
+
+    <div class="timeline" id="timeline"></div>
+
+    <hr class="divider">
+
+    <h2 class="section-title">Set-by-set</h2>
+    <div class="set-row-list" id="set-rows"></div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="logo" href="/"><img src="/gold-star.png" alt="">Gold Star Market</a>
+        <p>An independent market index for Pokémon Gold Star cards. For informational purposes only — not investment advice.</p>
+      </div>
+      <div class="footer-cols">
+        <div>
+          <div class="footer-col-heading">Index</div>
+          <div class="footer-col"><a href="/">All cards</a><a href="/population">Pop Reports</a><a href="/history">History</a></div>
+        </div>
+        <div>
+          <div class="footer-col-heading">Data</div>
+          <div class="footer-col">
+            <a href="https://www.pricecharting.com/" target="_blank" rel="noreferrer">PriceCharting</a>
+            <a href="https://www.tcgplayer.com/" target="_blank" rel="noreferrer">TCGPlayer</a>
+            <a href="https://www.psacard.com/" target="_blank" rel="noreferrer">PSA</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-heading">Disclosure</div>
+          <div class="footer-col"><span>Not affiliated with Pokémon, PSA, or eBay.</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Gold Star Market</span>
+      <span>EX Era · 2004 — 2007</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/data.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+  document.getElementById("history-intro").textContent = HISTORY_TEXT;
+
+  const TIMELINE = [
+    { year: "2003", title: "The EX Era begins", body: "Wizards of the Coast loses the Pokémon TCG license. The Pokémon Company International takes the reins and launches the EX block, with smaller English print runs than the Wizards era." },
+    { year: "2004", title: "EX Team Rocket Returns introduces Gold Stars", body: "Mudkip ★, Torchic ★, and Treecko ★ debut — the first Gold Stars ever printed in English. Pull rates of roughly 1 per 72 packs make them instantly the rarest cards of the era." },
+    { year: "2005", title: "EX Deoxys lands the crown jewel", body: "Rayquaza ★ — shiny black, frame-breaking artwork — becomes the chase card of the era and remains arguably the most visually striking Gold Star ever printed. Latias ★ and Latios ★ join the lineup." },
+    { year: "2005", title: "Legendary Beasts in Unseen Forces", body: "Entei ★, Raikou ★, and Suicune ★ get the Gold Star treatment, completing one of the most beloved trios in the EX era." },
+    { year: "2005", title: "EX Delta Species — the Eeveelutions arrive", body: "Flareon ★, Jolteon ★, Vaporeon ★, plus the Weather Trio (Groudon ★ and Kyogre ★) and Metagross ★. The largest single-set Gold Star count." },
+    { year: "2006", title: "EX Legend Maker, Holon Phantoms, Crystal Guardians, Dragon Frontiers", body: "The Regis, an iconic shiny red Gyarados ★, the franchise mascot Pikachu ★, and finally Charizard ★ in shiny black — one of the most desired cards in the entire hobby." },
+    { year: "2007", title: "EX Power Keepers reprints the Eeveelutions", body: "Flareon ★, Jolteon ★, and Vaporeon ★ get a Power Keepers reprint. Demand stays heavily on the Delta Species originals." },
+    { year: "2007", title: "POP Series 5 — the rarest of the rare", body: "Espeon ★ and Umbreon ★ are distributed exclusively through Pokémon Organized Play leagues, never available in retail packs. Umbreon ★ in PSA 10 has broken $100,000 at auction. The Gold Star era ends here." },
+    { year: "2017 — present", title: "Modern market", body: "Gold Stars become institutional grail cards as the Pokémon collecting boom accelerates. PSA 10 prices for the headline cards routinely 5–10× across cycles, with condition sensitivity making high grades disproportionately valuable." },
+  ];
+
+  const timeline = document.getElementById("timeline");
+  TIMELINE.forEach(t => {
+    timeline.insertAdjacentHTML("beforeend", `
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">${t.year}</div>
+        <h3 class="timeline-title">${t.title}</h3>
+        <p class="timeline-body">${t.body}</p>
+      </div>`);
+  });
+
+  const setRows = document.getElementById("set-rows");
+  SETS.forEach(s => {
+    setRows.insertAdjacentHTML("beforeend", `
+      <div class="set-row">
+        <span class="set-row-name">${s.name}</span>
+        <span class="set-row-meta">${s.year} · ${s.cards.map(c => c.name).join(", ")}</span>
+      </div>`);
+  });
+</script>
+
+</body>
+</html>
