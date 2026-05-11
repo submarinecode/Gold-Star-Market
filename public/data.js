@@ -96,20 +96,27 @@ const COLOR_HEX = {
 
 function colorHex(name) { return COLOR_HEX[name] || "#888"; }
 
+function goldStarImg(extraClass = "") {
+  const cls = extraClass ? `icon-gold-star ${extraClass}` : "icon-gold-star";
+  return `<img src="/gold-star.png" alt="" class="${cls}" width="18" height="18" decoding="async" aria-hidden="true">`;
+}
+
 function cardImgHtml(card, cls = "") {
   if (card.image) {
-    return `<img src="/cards/${card.image}" alt="${card.name} ★" loading="lazy" class="${cls}">`;
+    return `<img src="/cards/${card.image}" alt="${card.name} (Gold Star)" loading="lazy" class="${cls}">`;
   }
-  return `<div class="card-placeholder-img"><span class="card-placeholder-star">★</span><span>Coming soon</span></div>`;
+  return `<div class="card-placeholder-img">${goldStarImg("icon-gold-star--placeholder")}<span>Coming soon</span></div>`;
 }
 
 function renderCardTile(card) {
   return `
 <div class="card-tile">
-  <a class="card-tile-visual" href="/card?id=${card.id}">
+  <a class="card-tile-img-link" href="/card?id=${card.id}">
     <div class="card-img-wrap">${cardImgHtml(card)}</div>
-    <div class="card-caption">${card.name} <span class="card-star">★</span></div>
   </a>
-  <a class="btn btn-gold btn-block" href="${card.priceChartingUrl}" target="_blank" rel="noreferrer">PriceCharting →</a>
+  <div class="card-caption">
+    <a class="card-caption-name" href="/card?id=${card.id}">${card.name}${goldStarImg("icon-gold-star--caption")}</a>
+    <a class="card-pc" href="${card.priceChartingUrl}" target="_blank" rel="noreferrer">PriceCharting</a>
+  </div>
 </div>`;
 }

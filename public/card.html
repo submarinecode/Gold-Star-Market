@@ -76,14 +76,19 @@
   const setYear = (card && card.year) || (parentSet && parentSet.year) || "";
 
   if (card) {
-    document.title = `${card.name} ★ — ${setName} · Gold Star Market`;
+    document.title = `${card.name} — ${setName} · Gold Star Market`;
 
     const imgHtml = card.image
-      ? `<img src="/cards/${card.image}" alt="${card.name} ★">`
-      : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;color:rgba(201,168,76,0.35)">★</div>`;
+      ? `<img src="/cards/${card.image}" alt="${card.name} (Gold Star)">`
+      : `<div class="card-detail-placeholder">${goldStarImg("icon-gold-star--placeholder")}</div>`;
+
+    const starInline = goldStarImg("icon-gold-star--detail-title");
+    const notesHtml = card.notes.replace(/★/g, goldStarImg("icon-gold-star--text"));
 
     const tags = [];
-    if (card.flagship) tags.push(`<span class="tag" style="color:var(--gold);border-color:rgba(201,168,76,0.3);background:rgba(201,168,76,0.08)">★ Flagship</span>`);
+    if (card.flagship) {
+      tags.push(`<span class="tag" style="color:var(--gold);border-color:rgba(201,168,76,0.3);background:rgba(201,168,76,0.08);display:inline-flex;align-items:center;gap:0.25rem">${goldStarImg("icon-gold-star--tag")} <span>Flagship</span></span>`);
+    }
     if (card.reprint) tags.push(`<span class="tag">Reprint · ${card.reprintOf}</span>`);
 
     document.getElementById("page-content").innerHTML = `
@@ -102,14 +107,12 @@
               ${tags.join("")}
             </div>
             <h1 class="card-detail-name">
-              ${card.name}
-              <span style="color:var(--gold);filter:drop-shadow(0 0 8px rgba(201,168,76,0.4))">★</span>
+              <span class="card-detail-name-text">${card.name}</span>
+              ${starInline}
+              <a class="card-pc" href="${card.priceChartingUrl}" target="_blank" rel="noreferrer">PriceCharting</a>
             </h1>
             <div class="card-detail-sub">${setName} · #${card.number} · ${card.artist}</div>
-            <p class="card-detail-notes">${card.notes}</p>
-            <div class="card-detail-btns">
-              <a class="btn btn-gold" href="${card.priceChartingUrl}" target="_blank" rel="noreferrer">PriceCharting →</a>
-            </div>
+            <p class="card-detail-notes">${notesHtml}</p>
           </div>
         </div>
       </div>

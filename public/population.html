@@ -84,8 +84,8 @@
     popRows.insertAdjacentHTML("beforeend", `
       <div class="pop-table-row">
         <div class="pop-name">
-          <span class="pop-name-star">★</span>
-          <a href="/card?id=${c.id}" style="color:inherit;transition:color 0.15s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='inherit'">${c.name}</a>
+          ${goldStarImg("icon-gold-star--pop")}
+          <a href="/card?id=${c.id}" class="pop-name-link">${c.name}</a>
         </div>
         <div class="pop-set">${c.setName}</div>
         <div class="pop-year">${c.year}</div>

@@ -97,7 +97,7 @@
         <div class="timeline-dot"></div>
         <div class="timeline-year">${t.year}</div>
         <h3 class="timeline-title">${t.title}</h3>
-        <p class="timeline-body">${t.body}</p>
+        <p class="timeline-body">${t.body.replace(/★/g, () => goldStarImg("icon-gold-star--text"))}</p>
       </div>`);
   });
 
