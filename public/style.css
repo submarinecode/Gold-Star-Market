@@ -52,7 +52,7 @@ main { flex: 1; }
   font-weight: 600; font-size: 0.9rem; letter-spacing: -0.02em;
   color: var(--ink); flex-shrink: 0;
 }
-.logo img { height: 1em; width: auto; vertical-align: -0.06em; }
+.logo img { height: 1.55em; width: auto; vertical-align: -0.06em; flex-shrink: 0; }
 .logo:hover { color: var(--ink); }
 
 .site-nav { display: flex; align-items: center; gap: 0.125rem; }
@@ -89,7 +89,7 @@ main { flex: 1; }
   flex-shrink: 0;
   filter: drop-shadow(0 0 6px rgba(232,200,117,0.25)) drop-shadow(0 1px 0 rgba(0,0,0,0.35));
 }
-.icon-gold-star--caption { margin-left: 0.15rem; }
+.icon-gold-star--caption { height: 1.55em; margin-left: 0.12rem; }
 .icon-gold-star--detail-title { max-height: none; }
 .icon-gold-star--text { vertical-align: -0.1em; margin: 0 0.04em; }
 .icon-gold-star--tag { vertical-align: -0.1em; }
@@ -221,7 +221,7 @@ input[type="search"]::placeholder { color: rgba(136,136,136,0.7); }
 .card-caption-name {
   display: inline-flex;
   align-items: center;
-  gap: 0.1rem;
+  gap: 0.22rem;
   min-width: 0;
   flex: 1;
   font-size: 0.88rem;
